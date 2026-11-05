@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8e8ec">
+    <title>Panel administrativo | XV años de Kristel</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <h1>Administración de invitados</h1>
+
+    <section id="login">
+        <h2>Iniciar sesión</h2>
+
+        <form id="formLogin">
+            <label for="password">Contraseña de administrador</label>
+
+            <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" id="btnEntrar">
+                Entrar
+            </button>
+        </form>
+
+        <p id="mensajeLogin" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+        <h2>Resumen de asistencia</h2>
+
+        <div id="estadisticas"></div>
+
+        <h2>Familias invitadas</h2>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Familia</th>
+                        <th>Estado de asistencia</th>
+                        <th>Fecha de registro</th>
+                        <th>Invitación privada</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaInvitados"></tbody>
+            </table>
+        </div>
+
+        <p id="mensaje" role="status" aria-live="polite"></p>
+
+        <button type="button" id="btnActualizar">
+            Actualizar datos
+        </button>
+
+        <button type="button" id="btnSalir">
+            Cerrar sesión
+        </button>
+    </section>
+
+    <script src="admin.js" defer></script>
+</body>
+</html>

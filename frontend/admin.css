@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff5f2;
+    color: #45343a;
+}
+
+h1, h2 {
+    color: #80536e;
+}
+
+h1 {
+    text-align: center;
+}
+
+section {
+    background: #fff;
+    padding: 22px;
+    margin-bottom: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(90, 50, 70, 0.10);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #d9b9c6;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+button {
+    padding: 11px 17px;
+    margin: 5px 5px 5px 0;
+    border: none;
+    border-radius: 7px;
+    background: #a65f7c;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #80536e;
+}
+
+button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+#estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.estadistica {
+    background: #fff5f8;
+    border: 1px solid #f0d8e1;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 0;
+}
+
+.estadistica strong {
+    display: block;
+    color: #80536e;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.estadistica span {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #eadde2;
+    padding: 11px;
+    text-align: left;
+}
+
+th {
+    background: #a65f7c;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #fff7fa;
+}
+
+#mensajeLogin, #mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.error {
+    color: #b42318;
+}
+
+.exito {
+    color: #237a42;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    body {
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    section {
+        padding: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 13px;
+    }
+}

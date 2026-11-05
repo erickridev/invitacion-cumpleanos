@@ -1,0 +1,899 @@
+
+:root {
+    --rosa-fondo: #fbf3f2;
+    --rosa-claro: #f4e0e4;
+    --rosa-medio: #d9a9b6;
+    --rosa-oscuro: #925b6d;
+    --vino: #6f4051;
+    --crema: #fffaf5;
+    --texto: #65545a;
+    --borde: #e8cbd1;
+    --sombra: 0 12px 35px rgba(112, 65, 81, 0.10);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 28px 14px;
+    color: var(--texto);
+    background:
+        radial-gradient(circle at top left, #f7dfe6 0, transparent 30%),
+        radial-gradient(circle at bottom right, #f3e2d8 0, transparent 28%),
+        var(--rosa-fondo);
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.invitacion {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--crema);
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+    box-shadow: var(--sombra);
+}
+
+.portada {
+    position: relative;
+    min-height: 620px;
+    padding: 65px 32px 58px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(255, 250, 247, 0.20),
+            rgba(255, 250, 247, 0.25)
+        ),
+        url("fondo-floral.png") center center / cover no-repeat;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+.ornamento {
+    color: var(--rosa-oscuro);
+    font-size: 24px;
+    letter-spacing: 9px;
+}
+
+.ornamento.inferior {
+    margin-top: 35px;
+}
+
+.etiqueta {
+    margin: 20px 0 8px;
+    color: var(--rosa-oscuro);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    line-height: 1.8;
+}
+
+.presentacion {
+    margin: 25px 0 0;
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-style: italic;
+}
+
+h1 {
+    margin: -4px 0 0;
+    color: var(--rosa-oscuro);
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(70px, 14vw, 112px);
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.separador {
+    margin: 10px 0;
+    color: var(--rosa-oscuro);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+}
+
+.frase {
+    max-width: 420px;
+    margin: 10px auto 25px;
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 23px;
+    font-style: italic;
+}
+
+.fecha-portada {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 30px auto;
+    color: var(--vino);
+    letter-spacing: 2px;
+}
+
+.fecha-portada span {
+    font-size: 10px;
+}
+
+.fecha-portada strong {
+    font-size: 15px;
+    letter-spacing: 3px;
+}
+
+.invitacion-texto {
+    max-width: 470px;
+    margin: 20px auto 25px;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.boton-enlace {
+    display: inline-block;
+    padding: 11px 24px;
+    color: white;
+    background: var(--rosa-oscuro);
+    border: 1px solid var(--rosa-oscuro);
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    max-width: 100%;
+    min-height: 44px;
+    overflow-wrap: anywhere;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.boton-enlace:hover {
+    background: var(--vino);
+    transform: translateY(-2px);
+}
+
+.detalles,
+.evento,
+.formulario,
+.pie {
+    padding: 55px 35px;
+    text-align: center;
+}
+
+.detalles h2,
+.evento h2,
+.formulario h2 {
+    margin: 0 0 15px;
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(30px, 6vw, 42px);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.detalles .etiqueta,
+.evento .etiqueta,
+.formulario .etiqueta {
+    margin-top: 0;
+}
+
+.texto-detalles {
+    max-width: 510px;
+    margin: 0 auto 25px;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.fecha-tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 190px;
+    margin: 30px auto 0;
+    padding: 18px;
+    border-top: 1px solid var(--rosa-medio);
+    border-bottom: 1px solid var(--rosa-medio);
+}
+
+.mes {
+    color: var(--rosa-oscuro);
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.dia {
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 76px;
+    line-height: 1.2;
+}
+
+.anio {
+    color: var(--rosa-oscuro);
+    font-size: 12px;
+    letter-spacing: 5px;
+}
+
+.evento {
+    background: #f9eeee;
+    border-top: 1px solid var(--borde);
+}
+
+.recepcion {
+    background: #fff9f5;
+}
+
+.icono-evento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 20px;
+    color: var(--rosa-oscuro);
+    border: 1px solid var(--rosa-medio);
+    border-radius: 50%;
+    font-size: 25px;
+}
+
+.linea-decorativa {
+    width: 60px;
+    height: 1px;
+    margin: 25px auto;
+    background: var(--rosa-medio);
+}
+
+.dato-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 18px auto;
+    font-size: 13px;
+}
+
+.dato-evento strong {
+    color: var(--rosa-oscuro);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.dato-evento span {
+    overflow-wrap: anywhere;
+}
+
+.invitacion p,
+.invitacion h2 {
+    overflow-wrap: break-word;
+}
+
+.boton-enlace:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--vino);
+    outline-offset: 4px;
+}
+
+.boton-mapa {
+    margin-top: 12px;
+}
+
+.formulario {
+    background: var(--crema);
+    border-top: 1px solid var(--borde);
+}
+
+#formAsistencia {
+    max-width: 470px;
+    margin: 30px auto 0;
+    text-align: left;
+}
+
+#formAsistencia label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--vino);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#formAsistencia input {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 14px;
+    color: var(--texto);
+    background: #fffdfb;
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+    font: inherit;
+    font-size: 13px;
+}
+
+#formAsistencia input:focus {
+    outline: 2px solid #e9c4cf;
+    outline-offset: 1px;
+    border-color: var(--rosa-oscuro);
+}
+
+.integrantes-titulo {
+    margin: 24px 0 12px;
+}
+
+.integrantes-titulo span {
+    display: block;
+    color: #8d7a80;
+    font-size: 11px;
+}
+
+.integrante {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.integrante input {
+    flex: 1;
+}
+
+button {
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#btnConfirmar {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 18px;
+    color: white;
+    background: var(--rosa-oscuro);
+    border: 0;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#btnConfirmar:hover {
+    background: var(--vino);
+}
+
+#btnConfirmar:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.secundario {
+    width: 100%;
+    padding: 11px;
+    color: var(--rosa-oscuro);
+    background: transparent;
+    border: 1px dashed var(--rosa-medio);
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.secundario:hover {
+    background: var(--rosa-fondo);
+}
+
+.eliminar {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 44px;
+    color: var(--rosa-oscuro);
+    background: #f8e9ed;
+    border: 0;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+.eliminar:hover {
+    background: #f0d6de;
+}
+
+#mensaje {
+    min-height: 24px;
+    margin-top: 15px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#mensaje.exito {
+    color: #287449;
+}
+
+#mensaje.error {
+    color: #a12e42;
+}
+
+.pie {
+    padding-top: 35px;
+    padding-bottom: 45px;
+    background: var(--rosa-claro);
+    border-top: 1px solid var(--borde);
+}
+
+.frase-final {
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.firma {
+    color: var(--rosa-oscuro);
+    font-family: "Great Vibes", cursive;
+    font-size: 38px;
+}
+
+.fecha-final {
+    margin-top: 20px;
+    color: var(--vino);
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+@media (max-width: 520px) {
+    body {
+        padding: 10px;
+    }
+
+    .portada {
+        min-height: auto;
+        padding: 45px 18px;
+    }
+
+    .detalles,
+    .evento,
+    .formulario,
+    .pie {
+        padding: 40px 20px;
+    }
+
+    .etiqueta {
+        letter-spacing: 2px;
+    }
+
+    .frase {
+        font-size: 21px;
+    }
+
+    .fecha-portada strong {
+        font-size: 13px;
+    }
+}
+
+#mensaje.exito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    margin-top: 22px;
+    padding: 22px 16px;
+    color: #75475a;
+    background: #fff3f5;
+    border: 1px solid #e8c5d0;
+    border-radius: 12px;
+    line-height: 1.7;
+    animation: aparecer 0.4s ease;
+}
+
+.mensaje-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: white;
+    background: #b7788d;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+#mensaje.exito strong {
+    color: #925b6d;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#mensaje.exito em {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+}
+
+#mensaje.exito small {
+    color: #925b6d;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* CUENTA REGRESIVA DE LOS XV AÑOS */
+.cuenta-regresiva {
+    position: relative;
+    max-width: 500px;
+    margin: 38px auto 0;
+    padding: 34px 22px 28px;
+
+    background: rgba(255, 250, 246, 0.94);
+    border: 1px solid rgba(201, 165, 116, 0.38);
+    border-radius: 160px 160px 12px 12px / 32px 32px 12px 12px;
+
+    text-align: center;
+    box-shadow: 0 14px 35px rgba(120, 78, 87, 0.06);
+}
+
+.cuenta-regresiva::before {
+    content: "✧";
+    position: absolute;
+    top: -17px;
+    left: calc(50% - 22px);
+    width: 44px;
+    color: #b38b55;
+    background: #fffaf6;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.cuenta-regresiva .etiqueta {
+    margin: 8px 0 12px;
+    font-size: 9px;
+    letter-spacing: 2.6px;
+}
+
+.cuenta-regresiva h2 {
+    margin: 0 0 24px;
+    color: #805064;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(28px, 5vw, 36px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.25;
+}
+
+.contador {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+}
+
+.contador-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-width: 0;
+    min-height: 90px;
+    padding: 0 3px;
+}
+
+.contador-item + .contador-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 18%;
+    height: 56%;
+    width: 1px;
+    background: linear-gradient(transparent, rgba(201, 165, 116, 0.6), transparent);
+}
+
+.contador-item span {
+    color: #805064;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(34px, 7vw, 54px);
+    font-weight: 400;
+    line-height: 1.15;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: -1px;
+}
+
+.contador-item small {
+    margin-top: 10px;
+    color: #805e69;
+    font-size: 8px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.contador-frase {
+    max-width: 330px;
+    margin: 24px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(201, 165, 116, 0.3);
+    color: var(--vino);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+@media (max-width: 380px) {
+    .cuenta-regresiva {
+        padding: 30px 10px 24px;
+    }
+
+    .cuenta-regresiva .etiqueta {
+        font-size: 8px;
+        letter-spacing: 1.6px;
+    }
+
+    .contador-item {
+        min-height: 75px;
+    }
+
+    .contador-item small {
+        font-size: 7px;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* ==========================================
+   FLORES EN PORTADA Y CIERRE, INTERIOR EN CREMA
+   XV AÑOS DE KRISTEL
+========================================== */
+
+:root {
+    --fondo-floral: url("fondo-floral.png");
+    --dorado: #c9a574;
+    --borde-dorado: rgba(201, 165, 116, 0.45);
+}
+
+/* El fondo rosa suave enmarca la tarjeta. */
+.invitacion {
+    background: var(--crema);
+    border-color: var(--borde-dorado);
+}
+
+/* Las flores quedan reservadas para la bienvenida y la despedida. */
+.portada,
+.pie {
+    background-image:
+        linear-gradient(
+            rgba(255, 250, 247, 0.30),
+            rgba(255, 250, 247, 0.30)
+        ),
+        var(--fondo-floral);
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Fondos tranquilos para leer los detalles y confirmar asistencia. */
+.detalles,
+.evento,
+.recepcion,
+.formulario {
+    background: var(--crema);
+}
+
+.evento {
+    background: #fcf6ef;
+}
+
+.recepcion {
+    background: var(--crema);
+}
+
+.formulario {
+    background: #fcf4f3;
+}
+
+/* Separadores dorados finos entre los momentos de la invitación. */
+.portada {
+    border-bottom-color: var(--borde-dorado);
+}
+
+.evento,
+.formulario,
+.pie {
+    border-top-color: var(--borde-dorado);
+}
+
+.linea-decorativa {
+    background: linear-gradient(to right, transparent, var(--dorado), transparent);
+}
+
+.fecha-tarjeta {
+    border-color: var(--borde-dorado);
+}
+
+/* Recuadros suaves para facilitar la lectura */
+.cuenta-regresiva,
+.fecha-tarjeta {
+    background: rgba(255, 251, 248, 0.88);
+    backdrop-filter: blur(3px);
+}
+
+/* Formulario elegante y legible */
+.formulario #formAsistencia {
+    padding: 24px;
+    background: #fffdf9;
+    border: 1px solid var(--borde-dorado);
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(112, 65, 81, 0.06);
+}
+
+/* Espaciado del formulario en celulares. */
+@media (max-width: 520px) {
+    body {
+        padding: 8px;
+    }
+
+    .formulario #formAsistencia {
+        padding: 18px 14px;
+    }
+}
+
+/* Ajustes para pantallas amplias, tabletas y teléfonos. */
+@media (min-width: 900px) {
+    body {
+        padding: 24px;
+    }
+
+    .invitacion {
+        max-width: 660px;
+        border-radius: 12px;
+    }
+
+    .portada {
+        min-height: auto;
+        padding: 40px 36px 36px;
+    }
+
+    h1 {
+        font-size: 88px;
+    }
+
+    .detalles h2,
+    .evento h2,
+    .formulario h2 {
+        font-size: 34px;
+    }
+
+    .cuenta-regresiva {
+        max-width: 420px;
+        margin-top: 28px;
+        padding: 28px 18px 22px;
+    }
+
+    .cuenta-regresiva h2 {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+
+    .contador-item {
+        min-height: 76px;
+    }
+
+    .contador-item span {
+        font-size: 44px;
+    }
+
+    .detalles,
+    .evento,
+    .formulario,
+    .pie {
+        padding: 40px 36px;
+    }
+
+    .texto-detalles,
+    .invitacion-texto,
+    .dato-evento {
+        font-size: 13px;
+    }
+
+    #formAsistencia {
+        max-width: 440px;
+    }
+}
+
+@media (max-width: 520px) {
+    .invitacion {
+        border-radius: 10px;
+    }
+
+    .portada {
+        padding: 36px 16px;
+    }
+
+    h1 {
+        font-size: clamp(64px, 20vw, 96px);
+    }
+
+    .texto-detalles,
+    .invitacion-texto,
+    .dato-evento {
+        font-size: 14px;
+        line-height: 1.9;
+    }
+
+    .boton-enlace {
+        padding: 12px 18px;
+        font-size: 12px;
+    }
+
+    #formAsistencia #nombreFamilia,
+    #formAsistencia #codigoInvitacion {
+        font-size: 16px;
+        min-height: 48px;
+    }
+
+    #btnConfirmar {
+        min-height: 48px;
+        font-size: 13px;
+        letter-spacing: 0.6px;
+    }
+
+    .opcion-familia {
+        min-height: 48px;
+        overflow-wrap: anywhere;
+    }
+
+    .cuenta-regresiva {
+        padding: 30px 10px 24px;
+    }
+
+    .contador-item span {
+        font-size: clamp(30px, 9vw, 46px);
+    }
+
+    .contador-item small {
+        font-size: 7px;
+        letter-spacing: 0.8px;
+    }
+
+    .contador-frase {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 360px) {
+    .detalles,
+    .evento,
+    .formulario,
+    .pie {
+        padding: 34px 14px;
+    }
+
+    .fecha-portada strong {
+        letter-spacing: 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .invitacion *,
+    .invitacion *::before,
+    .invitacion *::after {
+        animation: none;
+        transition: none;
+    }
+}
