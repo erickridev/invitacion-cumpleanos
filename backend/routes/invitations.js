@@ -51,6 +51,10 @@ module.exports = function invitationRoutes({ pool, publicLimiter }) {
         if (typeof codigo !== "string" || codigo.length !== 36) {
             return res.status(400).json({ mensaje: "Introduce el código privado de tu invitación" });
         }
+        const estado = req.body?.estado;
+        if (estado !== "confirmado" && estado !== "no_asistira") {
+            return res.status(400).json({ mensaje: "Selecciona si tu familia asistirá o no asistirá" });
+        }
         let conexion;
         try {
             conexion = await pool.getConnection();
@@ -68,27 +72,30 @@ module.exports = function invitationRoutes({ pool, publicLimiter }) {
             }
 
             const familia = familias[0];
-            if (familia.estado_asistencia === "confirmado") {
+            const mensaje = estado === "confirmado"
+                ? "¡Gracias! Hemos registrado que su familia asistirá. ¡Les esperamos!"
+                : "Gracias por avisarnos. Hemos registrado que su familia no podrá asistir.";
+            if (familia.estado_asistencia === estado) {
                 await conexion.commit();
                 return res.json({
-                    yaConfirmada: true,
-                    mensaje: "La asistencia de esta familia ya estaba confirmada. ¡Gracias!",
+                    yaRegistrada: true,
+                    mensaje,
                     familia: familia.nombre_familia,
-                    estado: "confirmado"
+                    estado
                 });
             }
 
             await conexion.execute(
-                "UPDATE familias SET estado_asistencia = 'confirmado' WHERE id = ?",
-                [familiaId]
+                "UPDATE familias SET estado_asistencia = ? WHERE id = ?",
+                [estado, familiaId]
             );
             await conexion.commit();
 
             return res.json({
-                yaConfirmada: false,
-                mensaje: "¡Confirmación exitosa! Gracias por confirmar la asistencia de su familia.",
+                yaRegistrada: false,
+                mensaje,
                 familia: familia.nombre_familia,
-                estado: "confirmado"
+                estado
             });
         } catch (error) {
             if (conexion) {

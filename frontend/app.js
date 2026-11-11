@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonConfirmar = document.getElementById("btnConfirmar");
     const mensaje = document.getElementById("mensaje");
     const campoCodigo = document.getElementById("codigoInvitacion");
+    const campoRespuesta = document.getElementById("respuestaAsistencia");
 
     if (!formulario || !campoFamilia || !campoFamiliaId || !listaFamilias ||
-        !familiaSeleccionada || !botonConfirmar || !mensaje || !campoCodigo) {
+        !familiaSeleccionada || !botonConfirmar || !mensaje || !campoCodigo || !campoRespuesta) {
         console.error("Faltan elementos del formulario en index.html.");
         return;
     }
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         familiaSeleccionada.hidden = true;
         familiaSeleccionada.textContent = "";
         botonConfirmar.disabled = true;
+        campoRespuesta.value = "";
     }
 
     async function buscarFamilias(texto) {
@@ -149,12 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
         familiaSeleccionada.hidden = false;
         cerrarLista();
 
-        if (familiaElegida.estado === "confirmado") {
-            botonConfirmar.disabled = true;
-            mostrarMensaje("La asistencia de esta familia ya estaba confirmada. ¡Gracias!", "exito");
+        botonConfirmar.disabled = false;
+        if (["confirmado", "no_asistira"].includes(familiaElegida.estado)) {
+            campoRespuesta.value = familiaElegida.estado;
+            mostrarMensaje(familiaElegida.estado === "confirmado"
+                ? "Su respuesta actual es: asistirán. Pueden actualizarla si sus planes cambian."
+                : "Su respuesta actual es: no asistirán. Pueden actualizarla si sus planes cambian.", "info");
         } else {
-            botonConfirmar.disabled = false;
-            mostrarMensaje("Familia seleccionada. Puedes confirmar su asistencia.", "info");
+            campoRespuesta.value = "";
+            mostrarMensaje("Familia seleccionada. Indiquen si podrán acompañarnos.", "info");
         }
     }
 
@@ -192,9 +197,9 @@ document.addEventListener("DOMContentLoaded", () => {
             campoFamilia.focus();
             return;
         }
-        if (familiaElegida.estado === "confirmado") {
-            botonConfirmar.disabled = true;
-            mostrarMensaje("Esta familia ya confirmó su asistencia. ¡Gracias!", "exito");
+        if (!["confirmado", "no_asistira"].includes(campoRespuesta.value)) {
+            mostrarMensaje("Seleccionen si su familia asistirá o no asistirá.", "error");
+            campoRespuesta.focus();
             return;
         }
 
@@ -208,31 +213,32 @@ document.addEventListener("DOMContentLoaded", () => {
         botonConfirmar.disabled = true;
         campoFamilia.disabled = true;
         campoCodigo.disabled = true;
-        mostrarMensaje("Registrando tu confirmación...", "info");
+        campoRespuesta.disabled = true;
+        mostrarMensaje("Guardando su respuesta...", "info");
 
         try {
             const respuesta = await fetch("/api/asistencia", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Accept: "application/json" },
-                body: JSON.stringify({ familiaId: familiaElegida.id, codigo: campoCodigo.value.trim() })
+                body: JSON.stringify({ familiaId: familiaElegida.id, codigo: campoCodigo.value.trim(), estado: campoRespuesta.value })
             });
             const datos = await respuesta.json();
             if (!respuesta.ok) throw new Error(datos.mensaje || "No se pudo registrar la asistencia.");
 
-            familiaElegida.estado = "confirmado";
-            botonConfirmar.disabled = true;
+            familiaElegida.estado = datos.estado;
             mostrarMensaje(
-                datos.mensaje || "¡Confirmación exitosa! Gracias por confirmar la asistencia de su familia.",
+                datos.mensaje || "Gracias. Su respuesta quedó registrada.",
                 "exito"
             );
         } catch (error) {
             console.error("Error al confirmar asistencia:", error);
             mostrarMensaje(error.message || "Ocurrió un error. Inténtalo nuevamente.", "error");
-            botonConfirmar.disabled = !familiaElegida || familiaElegida.estado === "confirmado";
         } finally {
             enviando = false;
             campoFamilia.disabled = false;
             campoCodigo.disabled = false;
+            campoRespuesta.disabled = false;
+            botonConfirmar.disabled = !familiaElegida;
         }
     });
 

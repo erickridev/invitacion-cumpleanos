@@ -23,7 +23,7 @@ npm run db:init
 npm start
 ```
 
-El comando db:init crea las tablas que falten y conserva las existentes. No cambia nombres, tokens ni confirmaciones. La cuenta de MySQL necesita permisos de creación para este paso; la cuenta de ejecución necesita SELECT, INSERT, UPDATE y DELETE sobre las tablas de la aplicación.
+El comando db:init crea las tablas que falten y conserva las existentes. Añade el estado no_asistira si falta, sin cambiar nombres, tokens ni respuestas existentes. Al actualizar una instalación anterior, ejecuta de nuevo npm run db:init antes de iniciar el servidor. La cuenta de MySQL necesita permisos de creación para este paso; la cuenta de ejecución necesita SELECT, INSERT, UPDATE y DELETE sobre las tablas de la aplicación.
 
 Abre [la invitación](http://localhost:3000) o [el panel administrativo](http://localhost:3000/admin.html). Usa npm run dev para reiniciar automáticamente el servidor al editar el backend. La página y la API se sirven desde Express; no abras el HTML directamente ni uses un servidor separado para el frontend.
 
@@ -40,7 +40,7 @@ INSERT INTO familias (nombre_familia, token_invitacion)
 VALUES ('Familia de ejemplo', 'UUID-ALEATORIO-GENERADO-PARA-ESTA-FAMILIA');
 ```
 
-Reemplaza el texto de ejemplo por el UUID real de 36 caracteres y utiliza un UUID diferente por familia. En el panel, pulsa «Copiar enlace» y comparte ese enlace solo con la familia correspondiente. Abrirlo selecciona automáticamente a la familia. También se puede buscar el nombre e introducir el código manualmente.
+Reemplaza el texto de ejemplo por el UUID real de 36 caracteres y utiliza un UUID diferente por familia. En el panel, pulsa «Copiar enlace» y comparte ese enlace solo con la familia correspondiente. Abrirlo selecciona automáticamente a la familia. También se puede buscar el nombre e introducir el código manualmente. Cada familia debe elegir «Sí, asistiremos» o «No podremos asistir» antes de guardar. Puede volver a abrir su enlace privado para actualizar la respuesta si cambian sus planes. El panel muestra ambas respuestas y sus totales.
 
 El enlace lleva el código en el fragmento #codigo=..., que el navegador no envía al cargar la página. La aplicación lo retira de la barra de direcciones y lo verifica mediante POST. La búsqueda pública no devuelve códigos; la confirmación valida que el código corresponda al ID seleccionado. Quien tenga el enlace puede confirmar por esa familia: trátalo como privado. La búsqueda por nombre sigue siendo pública y devuelve hasta 15 coincidencias con su estado de asistencia.
 

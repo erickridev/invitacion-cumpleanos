@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS familias (
     nombre_familia VARCHAR(150) NOT NULL,
     token_invitacion CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado_asistencia ENUM('confirmado', 'pendiente') NOT NULL DEFAULT 'pendiente'
+    estado_asistencia ENUM('confirmado', 'pendiente', 'no_asistira') NOT NULL DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS sesiones (

@@ -192,7 +192,7 @@
         <p class="texto-detalles">
             Será una alegría compartir esta noche tan especial
             con ustedes. Busquen el nombre de su familia y selecciónenlo
-            e introduzcan el código privado de su invitación para confirmar su asistencia.
+            e introduzcan el código privado de su invitación para indicar si podrán acompañarnos.
         </p>
 
         <form id="formAsistencia">
@@ -230,8 +230,15 @@
                    placeholder="Código enviado por la persona organizadora"
                    maxlength="36" minlength="36" autocomplete="off" spellcheck="false" required>
 
+            <label for="respuestaAsistencia">¿Su familia podrá acompañarnos?</label>
+            <select id="respuestaAsistencia" name="estado" required>
+                <option value="">Seleccionen una respuesta</option>
+                <option value="confirmado">Sí, asistiremos</option>
+                <option value="no_asistira">No podremos asistir</option>
+            </select>
+
             <button type="submit" id="btnConfirmar" disabled>
-                Confirmar asistencia
+                Guardar respuesta
             </button>
 
             <p id="mensaje" role="status" aria-live="polite"></p>

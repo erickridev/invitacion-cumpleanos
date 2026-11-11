@@ -12,8 +12,8 @@ async function fixture(t, estado = "pendiente", fail = false) {
     const familia = { id: 1, familia_id: 1, nombre_familia: "Familia de prueba", estado_asistencia: estado, token_invitacion: codigo };
     const conn = {
         beginTransaction: async () => calls.push("begin"),
-        execute: async sql => {
-            if (sql.startsWith("UPDATE")) { calls.push("update"); if (fail) throw Error("fallo simulado"); return [{}]; }
+        execute: async (sql, params) => {
+            if (sql.startsWith("UPDATE")) { calls.push("update"); assert.equal(sql, "UPDATE familias SET estado_asistencia = ? WHERE id = ?"); assert.ok(["confirmado", "no_asistira"].includes(params[0])); assert.equal(params[1], 1); if (fail) throw Error("fallo simulado"); return [{}]; }
             return [[familia]];
         },
         commit: async () => calls.push("commit"), rollback: async () => calls.push("rollback"), release: () => calls.push("release")
@@ -34,23 +34,23 @@ test("rechaza confirmaciones sin código antes de consultar MySQL", async t => {
 });
 test("un código ajeno no modifica la familia y libera la conexión", async t => {
     const { request, calls } = await fixture(t);
-    assert.equal((await request("/api/asistencia", { familiaId: 1, codigo: "2".repeat(36) })).status, 403);
+    assert.equal((await request("/api/asistencia", { familiaId: 1, codigo: "2".repeat(36), estado: "confirmado" })).status, 403);
     assert.deepEqual(calls, ["begin", "rollback", "release"]);
 });
 test("confirma con código válido dentro de una transacción", async t => {
     const { request, calls } = await fixture(t);
-    const res = await request("/api/asistencia", { familiaId: 1, codigo });
-    assert.equal(res.status, 200); assert.equal((await res.json()).yaConfirmada, false);
+    const res = await request("/api/asistencia", { familiaId: 1, codigo, estado: "confirmado" });
+    assert.equal(res.status, 200); assert.equal((await res.json()).yaRegistrada, false);
     assert.deepEqual(calls, ["begin", "update", "commit", "release"]);
 });
 test("una confirmación repetida no vuelve a actualizar", async t => {
     const { request, calls } = await fixture(t, "confirmado");
-    assert.equal((await (await request("/api/asistencia", { familiaId: 1, codigo })).json()).yaConfirmada, true);
+    assert.equal((await (await request("/api/asistencia", { familiaId: 1, codigo, estado: "confirmado" })).json()).yaRegistrada, true);
     assert.deepEqual(calls, ["begin", "commit", "release"]);
 });
 test("revierte y libera la conexión si falla la escritura", async t => {
     const { request, calls } = await fixture(t, "pendiente", true);
-    assert.equal((await request("/api/asistencia", { familiaId: 1, codigo })).status, 500);
+    assert.equal((await request("/api/asistencia", { familiaId: 1, codigo, estado: "confirmado" })).status, 500);
     assert.deepEqual(calls, ["begin", "update", "rollback", "release"]);
 });
 test("el panel requiere sesión y logout invalida la cookie", async t => {
@@ -91,4 +91,34 @@ test("JSON incorrecto devuelve 400 y las rutas desconocidas 404", async t => {
 });
 test("rechaza una clave de sesión débil", () => {
     assert.throws(() => loadConfig({ SESSION_SECRET: "corta", ADMIN_PASSWORD: "prueba" }), /SESSION_SECRET/);
+});
+
+test("registra que una familia no asistirá", async t => {
+    const { request, calls } = await fixture(t);
+    const res = await request("/api/asistencia", { familiaId: 1, codigo, estado: "no_asistira" });
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.equal(body.estado, "no_asistira"); assert.match(body.mensaje, /no podrá asistir/);
+    assert.deepEqual(calls, ["begin", "update", "commit", "release"]);
+});
+test("permite cambiar una respuesta de sí a no y de no a sí", async t => {
+    for (const [previo, siguiente] of [["confirmado", "no_asistira"], ["no_asistira", "confirmado"]]) {
+        const { request, calls } = await fixture(t, previo);
+        const res = await request("/api/asistencia", { familiaId: 1, codigo, estado: siguiente });
+        assert.equal(res.status, 200); assert.equal((await res.json()).estado, siguiente);
+        assert.deepEqual(calls, ["begin", "update", "commit", "release"]);
+    }
+});
+test("repetir una negativa no vuelve a escribir", async t => {
+    const { request, calls } = await fixture(t, "no_asistira");
+    const res = await request("/api/asistencia", { familiaId: 1, codigo, estado: "no_asistira" });
+    assert.equal(res.status, 200); assert.equal((await res.json()).yaRegistrada, true);
+    assert.deepEqual(calls, ["begin", "commit", "release"]);
+});
+test("rechaza respuestas ausentes o inválidas sin consultar la base", async t => {
+    const { request, calls } = await fixture(t);
+    for (const estado of [undefined, "pendiente", "otro", true, null]) {
+        assert.equal((await request("/api/asistencia", { familiaId: 1, codigo, estado })).status, 400);
+    }
+    assert.deepEqual(calls, []);
 });

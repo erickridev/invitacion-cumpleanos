@@ -304,7 +304,8 @@ button:focus-visible {
     font-weight: 600;
 }
 
-#formAsistencia input {
+#formAsistencia input,
+#formAsistencia select {
     width: 100%;
     min-width: 0;
     padding: 13px 14px;
@@ -316,7 +317,8 @@ button:focus-visible {
     font-size: 13px;
 }
 
-#formAsistencia input:focus {
+#formAsistencia input:focus,
+#formAsistencia select:focus {
     outline: 2px solid #e9c4cf;
     outline-offset: 1px;
     border-color: var(--rosa-oscuro);
@@ -838,7 +840,8 @@ button {
     }
 
     #formAsistencia #nombreFamilia,
-    #formAsistencia #codigoInvitacion {
+    #formAsistencia #codigoInvitacion,
+    #formAsistencia #respuestaAsistencia {
         font-size: 16px;
         min-height: 48px;
     }
@@ -896,4 +899,14 @@ button {
         animation: none;
         transition: none;
     }
+}
+
+#formAsistencia select {
+    margin-top: 4px;
+    min-height: 48px;
+    cursor: pointer;
+}
+
+#formAsistencia label[for="respuestaAsistencia"] {
+    margin-top: 22px;
 }
